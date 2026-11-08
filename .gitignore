@@ -1,0 +1,51 @@
+# Build, Publish and Distribution Outputs
+bin/
+obj/
+publish/
+dist/
+**/bin/
+**/obj/
+**/publish/
+**/dist/
+
+# Executables, Native Libraries and Symbols
+*.exe
+*.dll
+*.so
+*.dylib
+*.pdb
+*.com
+*.class
+*.o
+
+# Visual Studio / JetBrains Rider / VS Code
+.vs/
+.idea/
+.vscode/
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+*.pubxml.user
+
+# FFmpeg and Tools (strictly excluded from repo)
+tools/ffmpeg/
+tools/
+ffmpeg.exe
+ffprobe.exe
+ffmpeg
+ffprobe
+
+# Logs, Test Results, and Temporary Files
+*.log
+logs/
+.sharrowkin/
+.agent/
+TestResults/
+*.tmp
+*.temp
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
+desktop.ini

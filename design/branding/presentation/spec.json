@@ -1,0 +1,39 @@
+{
+  "brand": "VidShrink",
+  "tagline": "Fast cross-platform video compression",
+  "brief": "A modern, high-performance desktop video compressor for Windows and Linux on C# / .NET 8 / Avalonia 11 + FFmpeg. Engineered for creators, gamers, and developers fitting videos into exact file sizes (Discord, Messenger, Email) or quality targets.",
+  "adjectives": [
+    "precise",
+    "utilitarian",
+    "fast",
+    "engineered"
+  ],
+  "criteria": "Distinct from media player clichés, scales cleanly down to 16 px, 100/100 geometric craft, seamless fit with warm near-black minimalism (#161412 / #F3EFE9).",
+  "industry": "software",
+  "nav": [
+    "Download",
+    "Docs",
+    "GitHub"
+  ],
+  "brand_color": "#F3EFE9",
+  "tile_color": "#161412",
+  "greyscale": false,
+  "final": true,
+  "concepts": [
+    {
+      "name": "Прецизионный зажим (Caliper Clamp)",
+      "symbol": "symbol.svg",
+      "lockup": "horizontal.svg",
+      "symbol_on_tile": "symbol-dark.svg",
+      "symbol_on_dark": "symbol-dark.svg",
+      "lockup_on_dark": "horizontal-dark.svg",
+      "idea": "Верхняя и нижняя прецизионные губки штангенциркуля сжимают видео-символ Play до точного целевого размера.",
+      "rationale": [
+        "Инженерный образ: штангенциркуль / калипер олицетворяет двухпроходный расчет битрейта и попадание байт-в-байт.",
+        "Идеальная читаемость: чистая геометрия без микродеталей прекрасно распознается на панели задач и в системном трее (16×16 px).",
+        "100/100 по тестам качества: строгая симметрия (34 px по бокам, 48 px сверху и снизу), отсутствие растров и фильтров.",
+        "Полная синергия с интерфейсом: органично встроен в заголовок окна и инсталляционные пакеты."
+      ]
+    }
+  ]
+}

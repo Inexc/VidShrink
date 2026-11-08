@@ -1,0 +1,33 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VidShrink.Core", "VidShrink.Core\VidShrink.Core.csproj", "{7171F971-FE10-4968-A99E-E8F4661FFC07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VidShrink.App", "VidShrink.App\VidShrink.App.csproj", "{55C39F7E-75BB-451E-A6C1-08107A4F3C35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VidShrink.Tests", "VidShrink.Tests\VidShrink.Tests.csproj", "{C802959D-713D-4FA7-8355-78B8F8243F99}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7171F971-FE10-4968-A99E-E8F4661FFC07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7171F971-FE10-4968-A99E-E8F4661FFC07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7171F971-FE10-4968-A99E-E8F4661FFC07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7171F971-FE10-4968-A99E-E8F4661FFC07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55C39F7E-75BB-451E-A6C1-08107A4F3C35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55C39F7E-75BB-451E-A6C1-08107A4F3C35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55C39F7E-75BB-451E-A6C1-08107A4F3C35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55C39F7E-75BB-451E-A6C1-08107A4F3C35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C802959D-713D-4FA7-8355-78B8F8243F99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C802959D-713D-4FA7-8355-78B8F8243F99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C802959D-713D-4FA7-8355-78B8F8243F99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C802959D-713D-4FA7-8355-78B8F8243F99}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

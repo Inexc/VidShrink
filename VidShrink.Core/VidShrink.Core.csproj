@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>VidShrink.Core</RootNamespace>
+    <AssemblyName>VidShrink.Core</AssemblyName>
+    <AssemblyTitle>VidShrink.Core</AssemblyTitle>
+    <Product>VidShrink</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Presets\presets.json" />
+  </ItemGroup>
+
+</Project>

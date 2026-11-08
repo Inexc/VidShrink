@@ -1,0 +1,16 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=VidShrink
+GenericName=Video Compressor
+GenericName[ru]=Сжатие видео
+Comment=Fast cross-platform video compressor using FFmpeg
+Comment[ru]=Быстрое кроссплатформенное сжатие видео через FFmpeg
+Exec=vidshrink %F
+Icon=vidshrink
+Terminal=false
+Categories=AudioVideo;Video;AudioVideoEditing;Utility;
+Keywords=video;compress;shrink;ffmpeg;transcode;mp4;
+MimeType=video/mp4;video/x-matroska;video/quicktime;video/webm;video/x-msvideo;
+StartupNotify=true
+StartupWMClass=VidShrink.App

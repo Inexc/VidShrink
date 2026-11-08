@@ -1,0 +1,108 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Color Tokens (Warm near-black minimalism, Warp-inspired) -->
+    <Color x:Key="ColorBackground">#161412</Color>
+    <Color x:Key="ColorSurface">#1B1917</Color>
+    <Color x:Key="ColorCard">#1B1917</Color>
+    <Color x:Key="ColorCardHover">#24211E</Color>
+    <Color x:Key="ColorCardBorder">#353534</Color>
+    <Color x:Key="ColorBorder">#353534</Color>
+    <Color x:Key="ColorBorderSubtle">#2A2724</Color>
+
+    <!-- Accent: Inverted warm-light button / active chip -->
+    <Color x:Key="ColorAccent">#F3EFE9</Color>
+    <Color x:Key="ColorAccentHover">#E6DFD5</Color>
+    <Color x:Key="ColorAccentPressed">#D5CFC5</Color>
+    <Color x:Key="ColorAccentSurface">#F3EFE9</Color>
+    <Color x:Key="ColorAccentText">#161412</Color>
+
+    <!-- Typography Colors -->
+    <Color x:Key="ColorTextPrimary">#F3EFE9</Color>
+    <Color x:Key="ColorTextSecondary">#8C8782</Color>
+    <Color x:Key="ColorTextMuted">#8C8782</Color>
+
+    <!-- Progress Tokens -->
+    <Color x:Key="ColorProgressTrack">#2A2724</Color>
+    <Color x:Key="ColorProgressFill">#F3EFE9</Color>
+
+    <!-- Chip Tokens -->
+    <Color x:Key="ColorChipInactiveBg">#1B1917</Color>
+    <Color x:Key="ColorChipInactiveBorder">#353534</Color>
+    <Color x:Key="ColorChipActiveBg">#F3EFE9</Color>
+    <Color x:Key="ColorChipActiveText">#161412</Color>
+
+    <!-- Status Colors (muted, only visible on error / alert) -->
+    <Color x:Key="ColorSuccess">#6BA870</Color>
+    <Color x:Key="ColorWarning">#C99738</Color>
+    <Color x:Key="ColorError">#C74A4A</Color>
+    <Color x:Key="ColorInfo">#8C8782</Color>
+
+    <!-- Solid Color Brushes -->
+    <SolidColorBrush x:Key="BrushBackground" Color="{StaticResource ColorBackground}" />
+    <SolidColorBrush x:Key="BrushSurface" Color="{StaticResource ColorSurface}" />
+    <SolidColorBrush x:Key="BrushCard" Color="{StaticResource ColorCard}" />
+    <SolidColorBrush x:Key="BrushCardHover" Color="{StaticResource ColorCardHover}" />
+    <SolidColorBrush x:Key="BrushCardBorder" Color="{StaticResource ColorCardBorder}" />
+    <SolidColorBrush x:Key="BrushBorder" Color="{StaticResource ColorBorder}" />
+    <SolidColorBrush x:Key="BrushBorderSubtle" Color="{StaticResource ColorBorderSubtle}" />
+
+    <SolidColorBrush x:Key="BrushAccent" Color="{StaticResource ColorAccent}" />
+    <SolidColorBrush x:Key="BrushAccentHover" Color="{StaticResource ColorAccentHover}" />
+    <SolidColorBrush x:Key="BrushAccentPressed" Color="{StaticResource ColorAccentPressed}" />
+    <SolidColorBrush x:Key="BrushAccentSurface" Color="{StaticResource ColorAccentSurface}" />
+    <SolidColorBrush x:Key="BrushAccentText" Color="{StaticResource ColorAccentText}" />
+
+    <SolidColorBrush x:Key="BrushTextPrimary" Color="{StaticResource ColorTextPrimary}" />
+    <SolidColorBrush x:Key="BrushTextSecondary" Color="{StaticResource ColorTextSecondary}" />
+    <SolidColorBrush x:Key="BrushTextMuted" Color="{StaticResource ColorTextMuted}" />
+
+    <SolidColorBrush x:Key="BrushProgressTrack" Color="{StaticResource ColorProgressTrack}" />
+    <SolidColorBrush x:Key="BrushProgressFill" Color="{StaticResource ColorProgressFill}" />
+
+    <SolidColorBrush x:Key="BrushChipInactiveBg" Color="{StaticResource ColorChipInactiveBg}" />
+    <SolidColorBrush x:Key="BrushChipInactiveBorder" Color="{StaticResource ColorChipInactiveBorder}" />
+    <SolidColorBrush x:Key="BrushChipActiveBg" Color="{StaticResource ColorChipActiveBg}" />
+    <SolidColorBrush x:Key="BrushChipActiveText" Color="{StaticResource ColorChipActiveText}" />
+
+    <SolidColorBrush x:Key="BrushSuccess" Color="{StaticResource ColorSuccess}" />
+    <SolidColorBrush x:Key="BrushWarning" Color="{StaticResource ColorWarning}" />
+    <SolidColorBrush x:Key="BrushError" Color="{StaticResource ColorError}" />
+    <SolidColorBrush x:Key="BrushInfo" Color="{StaticResource ColorInfo}" />
+
+    <!-- Layout Tokens -->
+    <Thickness x:Key="MarginNone">0</Thickness>
+    <Thickness x:Key="MarginExtraSmall">4</Thickness>
+    <Thickness x:Key="MarginSmall">8</Thickness>
+    <Thickness x:Key="MarginMedium">16</Thickness>
+    <Thickness x:Key="MarginLarge">24</Thickness>
+    <Thickness x:Key="MarginBottomSmall">0,0,0,8</Thickness>
+    <Thickness x:Key="MarginBottomMedium">0,0,0,14</Thickness>
+    <Thickness x:Key="MarginBottomLarge">0,0,0,20</Thickness>
+    <Thickness x:Key="MarginRightSmall">0,0,8,0</Thickness>
+    <Thickness x:Key="MarginRightMedium">0,0,14,0</Thickness>
+
+    <Thickness x:Key="PaddingNone">0</Thickness>
+    <Thickness x:Key="PaddingExtraSmall">4</Thickness>
+    <Thickness x:Key="PaddingSmall">8</Thickness>
+    <Thickness x:Key="PaddingMedium">14,10</Thickness>
+    <Thickness x:Key="PaddingLarge">20</Thickness>
+    <Thickness x:Key="PaddingButton">18,9</Thickness>
+    <Thickness x:Key="PaddingBadge">10,4</Thickness>
+    <Thickness x:Key="PaddingChip">14,7</Thickness>
+
+    <!-- Corner Radius Tokens -->
+    <CornerRadius x:Key="CornerRadiusSmall">4</CornerRadius>
+    <CornerRadius x:Key="CornerRadiusChip">7</CornerRadius>
+    <CornerRadius x:Key="CornerRadiusCard">8</CornerRadius>
+    <CornerRadius x:Key="CornerRadiusMedium">8</CornerRadius>
+    <CornerRadius x:Key="CornerRadiusDropZone">10</CornerRadius>
+    <CornerRadius x:Key="CornerRadiusLarge">10</CornerRadius>
+    <CornerRadius x:Key="CornerRadiusBadge">12</CornerRadius>
+    <CornerRadius x:Key="CornerRadiusProgress">3</CornerRadius>
+    <CornerRadius x:Key="CornerRadiusRound">999</CornerRadius>
+
+    <Thickness x:Key="BorderThicknessThin">1</Thickness>
+    <Thickness x:Key="BorderThicknessMedium">2</Thickness>
+
+</ResourceDictionary>

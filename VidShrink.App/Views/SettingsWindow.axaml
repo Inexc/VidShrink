@@ -1,0 +1,116 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:VidShrink.App.ViewModels"
+        xmlns:b="using:VidShrink.App.Behaviors"
+        x:Class="VidShrink.App.Views.SettingsWindow"
+        x:DataType="vm:SettingsViewModel"
+        Title="Настройки — VidShrink"
+        Icon="/Assets/icon.ico"
+        Width="560" Height="500"
+        MinWidth="480" MinHeight="440"
+        WindowStartupLocation="CenterScreen"
+        CanResize="False"
+        ShowInTaskbar="True"
+        UseLayoutRounding="True"
+        RenderOptions.BitmapInterpolationMode="HighQuality">
+
+    <Grid RowDefinitions="Auto, *, Auto" Margin="24, 20, 24, 20">
+
+        <!-- Header (draggable) -->
+        <Grid Grid.Row="0" Margin="0, 0, 0, 14" Background="Transparent" b:WindowDragBehavior.EnableDrag="True">
+            <StackPanel Spacing="4">
+                <TextBlock Text="Настройки" Classes="title" />
+                <TextBlock Text="Конфигурация кодировщика и путей сохранения" Classes="muted" />
+            </StackPanel>
+        </Grid>
+
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+            <StackPanel Spacing="12">
+
+                <!-- FFmpeg Path Card -->
+                <Border Classes="card">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Путь к FFmpeg" Classes="field-label" />
+                        <TextBlock Text="Если оставить пустым, будет выполнен поиск в системном PATH и папке приложения"
+                                   Classes="caption" />
+
+                        <Grid ColumnDefinitions="*, Auto">
+                            <TextBox Grid.Column="0"
+                                     Name="TbFfmpegPath"
+                                     AutomationProperties.Name="Путь к FFmpeg"
+                                     Text="{Binding FfmpegPath, Mode=TwoWay}"
+                                     Watermark="Автоматический поиск (PATH)"
+                                     Margin="{StaticResource MarginRightSmall}" />
+
+                            <Button Grid.Column="1"
+                                     Name="BtnBrowseFfmpeg"
+                                     AutomationProperties.Name="Обзор FFmpeg"
+                                     Classes="secondary"
+                                     Content="Обзор..."
+                                     Command="{Binding BrowseFfmpegCommand}" />
+                        </Grid>
+
+                        <TextBlock Text="{Binding FfmpegVersionText}"
+                                   Classes="caption" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Output Folder Card -->
+                <Border Classes="card">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Папка для сохранения по умолчанию" Classes="field-label" />
+                        <TextBlock Text="Если не указана, сжатые файлы сохраняются рядом с исходным видео"
+                                   Classes="caption" />
+
+                        <Grid ColumnDefinitions="*, Auto">
+                            <TextBox Grid.Column="0"
+                                     Name="TbOutputDir"
+                                     AutomationProperties.Name="Папка по умолчанию"
+                                     Text="{Binding DefaultOutputDir, Mode=TwoWay}"
+                                     Watermark="Рядом с исходным файлом"
+                                     Margin="{StaticResource MarginRightSmall}" />
+
+                            <Button Grid.Column="1"
+                                     Name="BtnBrowseOutputDir"
+                                     AutomationProperties.Name="Обзор папки сохранения"
+                                     Classes="secondary"
+                                     Content="Обзор..."
+                                     Command="{Binding BrowseOutputDirCommand}" />
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <!-- Hardware Acceleration Card -->
+                <Border Classes="card">
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Аппаратное ускорение" Classes="field-label" />
+                        <CheckBox Name="CbPreferHardware"
+                                  AutomationProperties.Name="Предпочитать аппаратное кодирование"
+                                  Content="Использовать аппаратное кодирование (NVENC / QSV / AMF / VAAPI), если доступно"
+                                  IsChecked="{Binding PreferHardware}" />
+                    </StackPanel>
+                </Border>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Bottom Action Buttons -->
+        <Grid Grid.Row="2" Margin="0, 16, 0, 0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+                <Button Name="BtnCancel"
+                        AutomationProperties.Name="Отмена"
+                        Classes="secondary"
+                        Content="Отмена"
+                        Command="{Binding CancelCommand}" />
+                <Button Name="BtnSave"
+                        AutomationProperties.Name="Сохранить"
+                        Classes="primary"
+                        Content="Сохранить"
+                        Command="{Binding SaveCommand}" />
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+
+</Window>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256"><title>VideoShrink Symbol</title><rect width="256" height="256" rx="57.6" fill="#161412"/><g transform="translate(19.97 19.97) scale(0.844)" fill="#F3EFE9">
+  <title id="logo-title">VideoShrink Logo</title>
+  <g id="symbol" fill="#F3EFE9">
+    <!-- Top Caliper Jaw -->
+    <path d="M46 48 H210 C216.6 48 222 53.4 222 60 V70 C222 76.6 216.6 82 210 82 H148 L133 97 C130.2 99.8 125.8 99.8 123 97 L108 82 H46 C39.4 82 34 76.6 34 70 V60 C34 53.4 39.4 48 46 48 Z"/>
+
+    <!-- Central Play Triangle -->
+    <path d="M102 96 C96.5 92.8 90 96.8 90 103.1 V152.9 C90 159.2 96.5 163.2 102 160.0 L166 132.0 C171.3 129.5 171.3 126.5 166 124.0 Z"/>
+
+    <!-- Bottom Caliper Jaw -->
+    <path d="M46 208 H210 C216.6 208 222 202.6 222 196 V186 C222 179.4 216.6 174 210 174 H148 L133 159 C130.2 156.2 125.8 156.2 123 159 L108 174 H46 C39.4 174 34 179.4 34 186 V196 C34 202.6 39.4 208 46 208 Z"/>
+  </g>
+</g></svg>

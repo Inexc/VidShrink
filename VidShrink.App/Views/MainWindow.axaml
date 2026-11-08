@@ -1,0 +1,403 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:VidShrink.App.ViewModels"
+        xmlns:m="using:VidShrink.Core.Models"
+        xmlns:b="using:VidShrink.App.Behaviors"
+        xmlns:c="using:VidShrink.App.Converters"
+        x:Class="VidShrink.App.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Title="VidShrink"
+        Icon="/Assets/icon.ico"
+        Width="820" Height="680"
+        MinWidth="720" MinHeight="500"
+        WindowStartupLocation="CenterScreen"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaTitleBarHeightHint="34"
+        UseLayoutRounding="True"
+        RenderOptions.BitmapInterpolationMode="HighQuality">
+
+    <Grid RowDefinitions="Auto, Auto, *, Auto">
+
+        <!-- Row 0: Custom Window Title Bar (Matching ref.png Warp header, draggable) -->
+        <Border Grid.Row="0"
+                Height="34"
+                BorderBrush="{StaticResource BrushBorderSubtle}"
+                BorderThickness="0,0,0,1"
+                Background="{StaticResource BrushBackground}"
+                b:WindowDragBehavior.EnableDrag="True">
+            <Grid ColumnDefinitions="Auto, *" Background="Transparent">
+                <StackPanel Grid.Column="0"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            Margin="16, 0, 0, 0"
+                            Spacing="8">
+                    <!-- Brand logo icon -->
+                    <PathIcon Data="M46 48 H210 C216.6 48 222 53.4 222 60 V70 C222 76.6 216.6 82 210 82 H148 L133 97 C130.2 99.8 125.8 99.8 123 97 L108 82 H46 C39.4 82 34 76.6 34 70 V60 C34 53.4 39.4 48 46 48 Z M102 96 C96.5 92.8 90 96.8 90 103.1 V152.9 C90 159.2 96.5 163.2 102 160.0 L166 132.0 C171.3 129.5 171.3 126.5 166 124.0 Z M46 208 H210 C216.6 208 222 202.6 222 196 V186 C222 179.4 216.6 174 210 174 H148 L133 159 C130.2 156.2 125.8 156.2 123 159 L108 174 H46 C39.4 174 34 179.4 34 186 V196 C34 202.6 39.4 208 46 208 Z"
+                              Width="15" Height="15"
+                              Foreground="{StaticResource BrushTextSecondary}"
+                              VerticalAlignment="Center" />
+
+                    <!-- Window title -->
+                    <TextBlock Text="VidShrink"
+                               FontSize="12"
+                               FontWeight="{StaticResource FontWeightMedium}"
+                               Foreground="{StaticResource BrushTextSecondary}"
+                               VerticalAlignment="Center" />
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Top Header Bar (Clean minimalist header directly on window bg, draggable) -->
+        <Grid Grid.Row="1"
+              ColumnDefinitions="*, Auto"
+              Margin="24, 14, 24, 10"
+              Background="Transparent"
+              b:WindowDragBehavior.EnableDrag="True">
+            <TextBlock Grid.Column="0"
+                       Text="Сжать видео"
+                       Classes="title"
+                       VerticalAlignment="Center" />
+
+            <Button Grid.Column="1"
+                    Name="BtnSettings"
+                    AutomationProperties.Name="Настройки приложения"
+                    Classes="badge-button"
+                    Content="{Binding FfmpegStatusText}"
+                    Command="{Binding OpenSettingsCommand}"
+                    VerticalAlignment="Center" />
+        </Grid>
+
+        <!-- Main Content Area -->
+        <ScrollViewer Grid.Row="2" Margin="24, 0, 24, 0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <StackPanel Spacing="14">
+
+                <!-- Missing FFmpeg Alert Banner -->
+                <Border Classes="card"
+                        Background="{StaticResource BrushSurface}"
+                        BorderBrush="{StaticResource BrushError}"
+                        BorderThickness="{StaticResource BorderThicknessThin}"
+                        IsVisible="{Binding !IsFfmpegAvailable}">
+                    <Grid ColumnDefinitions="Auto, *, Auto">
+                        <Path Grid.Column="0"
+                              Data="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"
+                              Fill="{StaticResource BrushError}"
+                              Width="16" Height="16"
+                              Stretch="Uniform"
+                              VerticalAlignment="Center"
+                              Margin="{StaticResource MarginRightSmall}" />
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center" Spacing="2">
+                            <TextBlock Text="FFmpeg не найден в системе" FontWeight="{StaticResource FontWeightSemiBold}" Foreground="{StaticResource BrushError}" />
+                            <TextBlock Text="{Binding FfmpegStatusText}" Classes="caption" Foreground="{StaticResource BrushTextSecondary}" />
+                        </StackPanel>
+                        <Button Grid.Column="2"
+                                Name="BtnFixFfmpeg"
+                                AutomationProperties.Name="Указать путь к FFmpeg"
+                                Classes="secondary"
+                                Content="Указать путь..."
+                                Command="{Binding OpenSettingsCommand}" />
+                    </Grid>
+                </Border>
+
+                <!-- Drop Zone (Dashed border, rounded corners, clean 2-line centered text) -->
+                <Border Name="DropZoneBorder"
+                        AutomationProperties.Name="Область перетаскивания файлов"
+                        CornerRadius="{StaticResource CornerRadiusDropZone}"
+                        Height="88"
+                        DragDrop.AllowDrop="True"
+                        b:DragDropFilesBehavior.DropFilesCommand="{Binding DropFilesCommand}"
+                        Cursor="Hand">
+                    <Grid>
+                        <!-- Dashed Rectangle Border -->
+                        <Rectangle Fill="{StaticResource BrushSurface}"
+                                   Stroke="{StaticResource BrushCardBorder}"
+                                   StrokeThickness="1"
+                                   StrokeDashArray="3,2"
+                                   RadiusX="10" RadiusY="10" />
+
+                        <!-- Center text -->
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="8">
+                            <TextBlock Text="Перетащите файл сюда"
+                                       Classes="field-value"
+                                       HorizontalAlignment="Center" />
+                            <TextBlock Text="поддерживается пакетная обработка"
+                                       Classes="muted"
+                                       HorizontalAlignment="Center" />
+                        </StackPanel>
+
+                        <!-- Invisible button for file picker click -->
+                        <Button Name="BtnBrowseInput"
+                                AutomationProperties.Name="Выбрать видеофайлы"
+                                Command="{Binding BrowseInputFilesCommand}"
+                                Opacity="0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch" />
+                    </Grid>
+                </Border>
+
+                <!-- Preset Selection -->
+                <StackPanel Spacing="8" Margin="0, 4, 0, 0">
+                    <TextBlock Text="ПРЕСЕТ" Classes="section-label" />
+
+                    <ListBox Name="CbPresets"
+                             AutomationProperties.Name="Выбор пресета сжатия"
+                             Classes="chips"
+                             ItemsSource="{Binding Presets}"
+                             SelectedItem="{Binding SelectedPreset}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate x:DataType="m:Preset">
+                                <TextBlock Text="{Binding Name}" />
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+
+                <!-- Target Size & Encoder Cards (2 Columns side by side) -->
+                <Grid ColumnDefinitions="*, 12, *" Margin="0, 2, 0, 0">
+                    <!-- Left Card: Target Size -->
+                    <Border Grid.Column="0" Classes="card" MinHeight="56" Padding="14, 8">
+                        <StackPanel Spacing="3">
+                            <TextBlock Text="Целевой размер, МБ" Classes="field-label" />
+                            <TextBox Name="TbTargetSize"
+                                     AutomationProperties.Name="Целевой размер в МБ"
+                                     Classes="card-input"
+                                     Text="{Binding TargetSizeMb, Mode=TwoWay}"
+                                     VerticalAlignment="Center" />
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Right Card: Encoder -->
+                    <Border Grid.Column="2" Classes="card" MinHeight="56" Padding="14, 8">
+                        <StackPanel Spacing="3">
+                            <TextBlock Text="Кодировщик" Classes="field-label" />
+                            <ComboBox Name="CbEncoders"
+                                      AutomationProperties.Name="Выбор кодировщика"
+                                      Classes="card-combo"
+                                      ItemsSource="{Binding AvailableEncoders}"
+                                      SelectedItem="{Binding SelectedEncoder}"
+                                      HorizontalAlignment="Stretch"
+                                      VerticalAlignment="Center">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate x:DataType="m:EncoderDescriptor">
+                                        <TextBlock Text="{Binding DisplayName}" />
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <!-- Progress Bar & Status Text (Visible during compression, matching ref.png position below cards) -->
+                <StackPanel Spacing="8" Margin="0, 4, 0, 0" IsVisible="{Binding QueueProgressPercent, Converter={x:Static c:GreaterThanZeroConverter.Instance}}">
+                    <ProgressBar Value="{Binding QueueProgressPercent}"
+                                 Minimum="0"
+                                 Maximum="100"
+                                 Classes="thin" />
+                    <TextBlock Text="{Binding QueueProgressPercent, Converter={x:Static c:ProgressTextConverter.Instance}}"
+                               Classes="progress-text" />
+                </StackPanel>
+
+                <!-- Bitrate Warning Banner -->
+                <Border Classes="card"
+                        Background="{StaticResource BrushSurface}"
+                        BorderBrush="{StaticResource BrushWarning}"
+                        BorderThickness="{StaticResource BorderThicknessThin}"
+                        IsVisible="{Binding HasBitrateWarning}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Path Data="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"
+                              Fill="{StaticResource BrushWarning}"
+                              Width="14" Height="14"
+                              Stretch="Uniform"
+                              VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding BitrateWarningMessage}"
+                                   Classes="caption"
+                                   Foreground="{StaticResource BrushWarning}" />
+                    </StackPanel>
+                </Border>
+
+                <!-- Estimated Bitrate Notice -->
+                <TextBlock Text="{Binding EstimatedBitrateText}"
+                           Classes="caption"
+                           Foreground="{StaticResource BrushTextSecondary}"
+                           IsVisible="{Binding EstimatedBitrateText, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
+                <!-- Job Queue Card (Visible when jobs exist) -->
+                <Border Classes="card" IsVisible="{Binding HasJobs}">
+                    <StackPanel Spacing="10">
+                        <Grid ColumnDefinitions="*, Auto">
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                                <TextBlock Text="Очередь файлов" Classes="subtitle" />
+                                <Border Classes="badge" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Jobs.Count, StringFormat='{}{0}'}" Classes="caption" />
+                                </Border>
+                            </StackPanel>
+
+                            <Button Grid.Column="1"
+                                    Name="BtnClearQueue"
+                                    AutomationProperties.Name="Очистить очередь"
+                                    Classes="secondary"
+                                    Content="Очистить всё"
+                                    Command="{Binding ClearJobsCommand}"
+                                    IsEnabled="{Binding !IsQueueRunning}" />
+                        </Grid>
+
+                        <!-- Items List -->
+                        <ItemsControl ItemsSource="{Binding Jobs}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate x:DataType="vm:JobItemViewModel">
+                                    <Border Classes="card" Margin="0,0,0,6" Padding="12,8">
+                                        <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="*, Auto">
+
+                                            <!-- Row 0: File Info -->
+                                            <StackPanel Grid.Row="0" Grid.Column="0" Spacing="2">
+                                                <TextBlock Text="{Binding FileName}"
+                                                           Classes="accent"
+                                                           FontWeight="{StaticResource FontWeightSemiBold}" />
+
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <TextBlock Text="{Binding ResolutionText}" Classes="stat-label" />
+                                                    <TextBlock Text="•" Classes="caption" />
+                                                    <TextBlock Text="{Binding DurationText}" Classes="stat-label" />
+                                                    <TextBlock Text="•" Classes="caption" />
+                                                    <TextBlock Text="{Binding OriginalSizeText}" Classes="stat-label" />
+                                                    <TextBlock Text="→" Classes="caption" IsVisible="{Binding IsCompleted}" />
+                                                    <TextBlock Text="{Binding CompressedSizeText}" Classes="stat-value" IsVisible="{Binding IsCompleted}" />
+                                                    <Border Classes="badge" IsVisible="{Binding IsCompleted}">
+                                                        <TextBlock Text="{Binding SavingsText}" Classes="caption" Foreground="{StaticResource BrushSuccess}" />
+                                                    </Border>
+                                                </StackPanel>
+                                            </StackPanel>
+
+                                            <!-- Row 0: Action Buttons -->
+                                            <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Spacing="6" VerticalAlignment="Center">
+                                                <Button Name="BtnOpenJobFolder"
+                                                        AutomationProperties.Name="Открыть папку с файлом"
+                                                        Classes="secondary"
+                                                        Content="Папка"
+                                                        Command="{Binding OpenFolderCommand}"
+                                                        IsVisible="{Binding CanOpenFolder}" />
+
+                                                <Button Name="BtnCancelJob"
+                                                        AutomationProperties.Name="Отменить задачу"
+                                                        Classes="danger"
+                                                        Content="Отмена"
+                                                        Command="{Binding CancelJobCommand}"
+                                                        IsVisible="{Binding CanCancel}" />
+
+                                                <Button Name="BtnRemoveJob"
+                                                        AutomationProperties.Name="Удалить из очереди"
+                                                        Classes="icon"
+                                                        Content="✕"
+                                                        Command="{Binding RemoveJobCommand}"
+                                                        IsVisible="{Binding !IsProcessing}" />
+                                            </StackPanel>
+
+                                            <!-- Row 1: Progress & Status -->
+                                            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Spacing="4" Margin="0,4,0,0">
+                                                <Grid ColumnDefinitions="*, Auto">
+                                                    <TextBlock Grid.Column="0" Text="{Binding StatusText}" Classes="caption" />
+                                                    <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                                                        <TextBlock Text="{Binding SpeedText}" Classes="caption" IsVisible="{Binding IsProcessing}" />
+                                                        <TextBlock Text="{Binding EtaText}" Classes="caption" IsVisible="{Binding IsProcessing}" />
+                                                    </StackPanel>
+                                                </Grid>
+
+                                                <ProgressBar Value="{Binding ProgressPercent}"
+                                                             Minimum="0"
+                                                             Maximum="100"
+                                                             Classes="thin"
+                                                             IsVisible="{Binding IsProcessing}" />
+
+                                                <!-- Error text if failed -->
+                                                <TextBlock Text="{Binding ErrorText}"
+                                                           Classes="error"
+                                                           IsVisible="{Binding IsFailed}" />
+                                            </StackPanel>
+
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+                </Border>
+
+                <!-- Additional Settings / Output (Visible when jobs exist) -->
+                <Expander Header="Дополнительные параметры"
+                          IsExpanded="False"
+                          IsVisible="{Binding HasJobs}"
+                          b:ExpanderAutoScrollBehavior.EnableAutoScroll="True"
+                          Background="Transparent"
+                          BorderThickness="0">
+                    <Expander.ContentTransition>
+                        <PageSlide Duration="0:0:0.25" Orientation="Vertical" />
+                    </Expander.ContentTransition>
+                    <StackPanel Spacing="10" Margin="0, 8, 0, 0">
+                        <CheckBox Name="CbTwoPass"
+                                  AutomationProperties.Name="Двухпроходное кодирование"
+                                  Content="Двухпроходное кодирование (точный размер файла)"
+                                  IsChecked="{Binding TwoPass}" />
+
+                        <!-- Output Destination -->
+                        <Grid ColumnDefinitions="*, Auto">
+                            <TextBox Grid.Column="0"
+                                     Name="TbOutputFolder"
+                                     AutomationProperties.Name="Папка сохранения"
+                                     Text="{Binding OutputDirectory, Mode=TwoWay}"
+                                     Watermark="Рядом с исходным файлом"
+                                     Margin="{StaticResource MarginRightSmall}" />
+                            <Button Grid.Column="1"
+                                     Name="BtnBrowseOutputFolder"
+                                     AutomationProperties.Name="Выбрать папку для сохранения"
+                                     Classes="secondary"
+                                     Content="Выбрать..."
+                                     Command="{Binding BrowseOutputDirectoryCommand}" />
+                        </Grid>
+
+                        <!-- Quick Size Overrides -->
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <Button Name="BtnSizeDiscord" Classes="secondary" Content="8 МБ" Command="{Binding SetTargetSizeCommand}" CommandParameter="8.0" />
+                            <Button Name="BtnSizeMessenger" Classes="secondary" Content="16 МБ" Command="{Binding SetTargetSizeCommand}" CommandParameter="16.0" />
+                            <Button Name="BtnSize25" Classes="secondary" Content="25 МБ" Command="{Binding SetTargetSizeCommand}" CommandParameter="25.0" />
+                            <Button Name="BtnSize50" Classes="secondary" Content="50 МБ" Command="{Binding SetTargetSizeCommand}" CommandParameter="50.0" />
+                            <Button Name="BtnSize100" Classes="secondary" Content="100 МБ" Command="{Binding SetTargetSizeCommand}" CommandParameter="100.0" />
+                        </StackPanel>
+                    </StackPanel>
+                </Expander>
+
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Bottom Row: Status on Left, Primary Button on Right (Sticky Footer) -->
+        <Grid Grid.Row="3" ColumnDefinitions="*, Auto" Margin="24, 20, 24, 24">
+            <TextBlock Grid.Column="0"
+                       Text="{Binding QueueStatusText}"
+                       Classes="body"
+                       Foreground="{StaticResource BrushTextSecondary}"
+                       VerticalAlignment="Center" />
+
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                <Button Name="BtnCancelQueue"
+                        AutomationProperties.Name="Остановить сжатие"
+                        Classes="danger"
+                        Content="Остановить"
+                        Command="{Binding CancelCompressionCommand}"
+                        IsVisible="{Binding IsQueueRunning}" />
+
+                <Button Name="BtnStartQueue"
+                        AutomationProperties.Name="Начать сжатие"
+                        Classes="primary"
+                        Content="Начать сжатие"
+                        Command="{Binding StartCompressionCommand}"
+                        IsEnabled="{Binding CanStartCompression}"
+                        IsVisible="{Binding !IsQueueRunning}" />
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+
+</Window>
