@@ -12,11 +12,11 @@
     <AssemblyName>VidShrink.App</AssemblyName>
     <AssemblyTitle>VidShrink</AssemblyTitle>
     <Product>VidShrink</Product>
-    <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
+    <ApplicationIcon>Assets/icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <AvaloniaResource Include="Assets\**" />
+    <AvaloniaResource Include="Assets/**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\VidShrink.Core\VidShrink.Core.csproj" />
+    <ProjectReference Include="../VidShrink.Core/VidShrink.Core.csproj" />
   </ItemGroup>
 
 </Project>

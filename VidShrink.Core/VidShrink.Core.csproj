@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Presets\presets.json" />
+    <EmbeddedResource Include="Presets/presets.json" />
   </ItemGroup>
 
 </Project>
