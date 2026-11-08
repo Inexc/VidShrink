@@ -168,7 +168,14 @@ public partial class MainWindowViewModel : ObservableObject
 
         if (IsFfmpegAvailable)
         {
-            FfmpegStatusText = $"FFmpeg готов ({paths.FfmpegVersion?.Split(' ')[2] ?? "найден"})";
+            string verStr = "найден";
+            if (!string.IsNullOrWhiteSpace(paths.FfmpegVersion))
+            {
+                var parts = paths.FfmpegVersion.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+                if (parts.Length >= 3) verStr = parts[2];
+                else if (parts.Length >= 1) verStr = parts[^1];
+            }
+            FfmpegStatusText = $"FFmpeg готов ({verStr})";
             var detected = await _encoderDetector.DetectAvailableEncodersAsync(paths.FfmpegPath, verifyWithTestEncode: false);
             AvailableEncoders.Clear();
             foreach (var enc in detected)
